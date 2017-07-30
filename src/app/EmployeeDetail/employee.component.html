@@ -1,0 +1,125 @@
+<style>
+#employess {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#employess td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#employess tr:nth-child(even){background-color: #f2f2f2;}
+
+#employess tr:hover {background-color: #ddd;}
+
+#employess th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+
+<div class="container"> 
+  <div class="row">
+    <div class="col-md-12">
+        <div>
+           
+      
+   <Employee-Count [All]="getallEmployeeCount()"
+                [Male]="getMaleEmployeeCOunt()"
+                [Female]="getallFemaleEmployee()"
+                (countRadioButtonSelectionChanged)="onEmployeeCountRadioButtonChange($event)">
+   </Employee-Count> 
+ 
+
+
+  <br> <br> 
+            
+
+<table   id="employess" >
+
+<tr>
+   
+    <th>Code</th>
+         <th>Name</th>
+              <th>Gender</th>
+              <th>Annual Salary</th>
+               <th>Date of Birth</th>
+               <th>Index</th>
+                  <th>First</th>
+                  <th>last</th>
+                  <th>Even</th>
+                   <th>Odd</th>
+  
+
+</tr>
+
+<!-- <ng-container *ngFor="let emp of employeeList;trackBy:trackByEmpCode;let index=index;let first=first;let last=last;let isEven=even;let isOdd=odd;"> -->
+
+ <ng-container *ngFor="let emp of employeeList;trackBy:trackByEmpCode;let index=index;let first=first;let last=last;let isEven=even;let isOdd=odd;">
+    <tr   *ngIf="selectedEmployeeCountRadioButton=='All' ||
+                       selectedEmployeeCountRadioButton.toLowerCase()==emp.gender" >
+    
+<td>{{emp.Code}}</td>
+<td>{{emp.name | uppercase | EmployeeTitle:emp.gender }}</td>
+<td>{{emp.gender | uppercase }}</td>
+<td>{{emp.annualSalary | currency :'EUR':true}}</td>
+<td>{{emp.dateofbirth | date:'fullDate' | uppercase}}</td>
+<td>{{index}}</td>
+
+<td>{{first}}</td>
+<td>{{last}}</td>
+
+<td>{{isEven}}</td>
+
+<td>{{isOdd }}</td>
+
+
+
+</tr>
+</ng-container>
+<tr *ngIf="!employeeList || employeeList.length==0">
+    <td colspan="5">No data found for this list</td>
+</tr>
+
+
+</table>
+<br>
+<br>
+<button (click)=getEmloyee()>Refresh Employees</button>
+
+
+
+<!-- <br>
+<br>
+<br>
+<h1>My First Service in Angular</h1>
+
+<table  id="employess">
+<tr>
+   
+    <th>Name</th>
+    <th>User Name</th>
+    <th>Email</th>
+    <th>Website</th>
+    
+</tr>
+<tr *ngFor="let user of users">    
+<td>{{user.name}}</td>
+<td>{{user.username}}</td>
+<td>{{user.email}}</td>
+
+<td>{{user.website}}</td>
+
+</tr>
+</table> -->
+        </div>
+    </div>
+  </div>
+</div>
+
+<br>
